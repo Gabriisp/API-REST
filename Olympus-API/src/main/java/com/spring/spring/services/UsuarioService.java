@@ -1,14 +1,12 @@
 package com.spring.spring.services;
 
+import java.util.List;
 import java.util.Optional;
-
 import com.spring.spring.entities.Usuario;
 
 public interface UsuarioService {
-    public Iterable<Usuario> findAll();
-        public Optional<Usuario> findById(int id);
-
-
-
-    
+    List<Usuario> findAll();
+    Optional<Usuario> findById(Integer id);
+    Usuario save(Usuario usuario);
+    void deleteById(Integer id);
 }

@@ -1,71 +1,47 @@
 package com.spring.spring.entities;
 
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.List;
+
+@Entity
+@Table(name = "usuario")
 public class Usuario {
-    int idUsuario;
-    String nombre, email, password, tipo;
-    boolean activo;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
+    private Integer idUsuario;
 
-    public Usuario() {
-    }
+    @Column
+    private String nombre;
 
-    public Usuario(String nombre, String email, String password, String tipo) {
-        this.nombre = nombre;
-        this.email = email;
-        this.password = password;
-        this.tipo = tipo;
-        this.activo = true;
-    }
+    @Column
+    private String email;
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
+    @Column
+    private String password;
 
-    public void setIdUsuario(int id) {
-        this.idUsuario = id;
-    }
+    @Column
+    private String tipo;
 
-    public String getNombre() {
-        return nombre;
-    }
+    @OneToMany(mappedBy = "usuarioCreador", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Rutina> rutinas;
 
-    public void setNombre(String n) {
-        this.nombre = n;
-    }
+    public Usuario() {}
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String e) {
-        this.email = e;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String p) {
-        this.password = p;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String t) {
-        this.tipo = t;
-    }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean a) {
-        this.activo = a;
-    }
-
-    @Override
-    public String toString() {
-        return nombre;
-    }
+    // Getters y Setters
+    public Integer getIdUsuario() { return idUsuario; }
+    public void setIdUsuario(Integer idUsuario) { this.idUsuario = idUsuario; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+    public List<Rutina> getRutinas() { return rutinas; }
+    public void setRutinas(List<Rutina> rutinas) { this.rutinas = rutinas; }
 }

@@ -1,86 +1,36 @@
 package com.spring.spring.entities;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
+@Entity
+@Table(name = "rutina")
 public class Rutina {
 
-    int idUsuario;
-    int idRutina, idUsuarioCreador;
-    Integer idEntrenadorAsignador;
-    String nombre, descripcion;
-    LocalDateTime fechaCreacion;
-    boolean activa;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_rutina")
+    private Integer idRutina;
 
-    public Rutina() {
-    }
+    @Column(name = "nombre")
+    private String nombre;
 
-    public Rutina(String nombre, String descripcion, int idUsuarioCreador) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.idUsuarioCreador = idUsuarioCreador;
-        this.activa = true;
-        this.fechaCreacion = LocalDateTime.now();
-    }
+    @Column(name = "descripcion")
+    private String descripcion;
 
-    public int getIdRutina() {
-        return idRutina;
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_usuario_creador")
+    @JsonBackReference
+    private Usuario usuarioCreador;
 
-    public void setIdRutina(int id) {
-        this.idRutina = id;
-    }
+    public Rutina() {}
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String n) {
-        this.nombre = n;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String d) {
-        this.descripcion = d;
-    }
-
-    public int getIdUsuarioCreador() {
-        return idUsuarioCreador;
-    }
-
-    public void setIdUsuarioCreador(int id) {
-        this.idUsuarioCreador = id;
-    }
-
-    public Integer getIdEntrenadorAsignador() {
-        return idEntrenadorAsignador;
-    }
-
-    public void setIdEntrenadorAsignador(Integer id) {
-        this.idEntrenadorAsignador = id;
-    }
-
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDateTime f) {
-        this.fechaCreacion = f;
-    }
-
-    public boolean isActiva() {
-        return activa;
-    }
-
-    public void setActiva(boolean a) {
-        this.activa = a;
-    }
-
-    @Override
-    public String toString() {
-        return nombre;
-    }
-
+    public Integer getIdRutina() { return idRutina; }
+    public void setIdRutina(Integer idRutina) { this.idRutina = idRutina; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public Usuario getUsuarioCreador() { return usuarioCreador; }
+    public void setUsuarioCreador(Usuario usuarioCreador) { this.usuarioCreador = usuarioCreador; }
 }
